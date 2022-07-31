@@ -59,7 +59,7 @@ app.post("/alert", async(req, res) => {
 
     message = mm_set(event_title, alert_tile, alert_type, tags, priority, link, snapshot)
 
-    const res = await axios.post('"https://api.line.me/v2/bot/message/push', 
+    const response = await axios.post('"https://api.line.me/v2/bot/message/push', 
       { 
         "to": ["Ubedd0f50b99217db43961d4fded59241"],
         "messages": message
@@ -74,6 +74,8 @@ app.post("/alert", async(req, res) => {
         }
     }
     );
+    console.log(response);
+    res.sendStatus(200)
 })
 
 function mm_set(event_title, alert_tile, alert_type, tags, priority, link, snapshot) {

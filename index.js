@@ -36,6 +36,8 @@ app.post("/alert", async(req, res) => {
     // link = content['link']
     // image = content['snapshot']
     // tags = content['tags']
+
+    console.log(req.body)
     
     const { alert_title, alert_query, event_title, alert_type, priority, link, snapshot, tags } = req.body
 

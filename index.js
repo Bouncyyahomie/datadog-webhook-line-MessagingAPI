@@ -12,7 +12,6 @@ const lineConfig = {
 const client = new line.Client(lineConfig)
 
 const app = express()
-const PORT = process.env.PORT || 3000 //
 
 app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
     var content = request.get_json()
@@ -38,6 +37,6 @@ const handleEvent = async (event) =>{
   return client.replyMessage(event.replyToken,{type:'text',text:'Test'})
 }
 
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`)
+app.listen(3000, () => {
+  console.log(`Example app listening at http://localhost:3000`)
 })

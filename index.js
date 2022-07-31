@@ -2,6 +2,7 @@ const https = require("https")
 const express = require("express")
 const line = require('@line/bot-sdk')
 const dotenv= require('dotenv')
+const axios = require('axios')
 
 const env = dotenv.config().parsed
 const lineConfig = {
@@ -12,6 +13,7 @@ const lineConfig = {
 const client = new line.Client(lineConfig)
 
 const app = express()
+app.use(require('body-parser').urlencoded({ extended: false }));
 const PORT = process.env.PORT || 3000 //
 
 lineID_sent_to = ["111", "222"]
@@ -26,7 +28,7 @@ app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
     }
 })
 
-app.post("/alert", async(req, res) => {
+app.post("/alert", async (req, res) => {
     // content = request.get_json()
     // alert_title = content['alert_title']
     // alert_query = content['alert_query']
@@ -37,7 +39,7 @@ app.post("/alert", async(req, res) => {
     // image = content['snapshot']
     // tags = content['tags']
 
-    console.log(req.body)
+    console.log(req)
     
     const { alert_title, alert_query, event_title, alert_type, priority, link, snapshot, tags } = req.body
 
@@ -59,7 +61,7 @@ app.post("/alert", async(req, res) => {
     //     ]
     // }'
 
-    message = mm_set(event_title, alert_tile, alert_type, tags, priority, link, snapshot)
+    message = mm_set(event_title, alert_title, alert_type, tags, priority, link, snapshot)
 
     const response = await axios.post('"https://api.line.me/v2/bot/message/push', 
       { 
@@ -72,7 +74,7 @@ app.post("/alert", async(req, res) => {
           // older servers may use 'text/json'.
           // See: http://bit.ly/text-json
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${channelAccessToken}`
+          'Authorization': `Bearer ${lineConfig.channelAccessToken}`
         }
     }
     );
@@ -80,7 +82,7 @@ app.post("/alert", async(req, res) => {
     res.sendStatus(200)
 })
 
-function mm_set(event_title, alert_tile, alert_type, tags, priority, link, snapshot) {
+function mm_set(event_title, alert_title, alert_type, tags, priority, link, snapshot) {
   return message = {
     "type": "bubble",
     "hero": {

@@ -39,7 +39,7 @@ app.post("/alert", async (req, res) => {
     // image = content['snapshot']
     // tags = content['tags']
 
-    console.log(req)
+    // console.log(req.body)
     
     const { alert_title, alert_query, event_title, alert_type, priority, link, snapshot, tags } = req.body
 
@@ -62,8 +62,9 @@ app.post("/alert", async (req, res) => {
     // }'
 
     message = mm_set(event_title, alert_title, alert_type, tags, priority, link, snapshot)
-
-    const response = await axios.post('"https://api.line.me/v2/bot/message/push', 
+    console.log(message)
+    try {
+      const response = await axios.post("https://api.line.me/v2/bot/message/multicast", 
       { 
         "to": ["Ubedd0f50b99217db43961d4fded59241"],
         "messages": message
@@ -78,8 +79,14 @@ app.post("/alert", async (req, res) => {
         }
     }
     );
-    console.log(response);
+    // console.log(response.body);
+    console.log(response.data);
     res.sendStatus(200)
+  }
+  catch(error) {
+    res.status(500).end()
+  }
+    
 })
 
 function mm_set(event_title, alert_title, alert_type, tags, priority, link, snapshot) {

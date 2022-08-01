@@ -20,7 +20,6 @@ const PORT = process.env.PORT || 3000; //
 // line.middleware(lineConfig)
 
 app.post("/webhook", async (req, res) => {
-  console.log("jkjjhfghdfhg");
   try {
     const events = req.body.events;
     console.log("event=>>>>", events);
@@ -72,7 +71,7 @@ app.post("/alert", async (req, res) => {
       "https://api.line.me/v2/bot/message/multicast",
       {
         to: [
-          env.USER1,
+          env.USER1,env.USER2
         ],
         messages: [message],
       },

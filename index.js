@@ -32,7 +32,6 @@ app.post("/alert", async (req, res) => {
   const {
     alert_title,
     event_title,
-    alert_type,
     priority,
     link,
     tags,
@@ -59,7 +58,6 @@ app.post("/alert", async (req, res) => {
   message = mm_set(
     event_title,
     alert_title,
-    alert_type,
     tags,
     priority,
     link,
@@ -96,7 +94,6 @@ app.post("/alert", async (req, res) => {
 function mm_set(
   event_title,
   alert_title,
-  alert_type,
   tags,
   priority,
   link,
@@ -104,7 +101,6 @@ function mm_set(
   console.log(
     event_title,
     alert_title,
-    alert_type,
     tags,
     priority,
     link,
@@ -174,28 +170,6 @@ function mm_set(
                   {
                     type: "text",
                     text: alert_title,
-                    wrap: true,
-                    color: "#666666",
-                    size: "sm",
-                    flex: 5,
-                  },
-                ],
-              },
-              {
-                type: "box",
-                layout: "baseline",
-                spacing: "sm",
-                contents: [
-                  {
-                    type: "text",
-                    text: "Alert type",
-                    color: "#aaaaaa",
-                    size: "sm",
-                    flex: 1,
-                  },
-                  {
-                    type: "text",
-                    text: alert_type,
                     wrap: true,
                     color: "#666666",
                     size: "sm",

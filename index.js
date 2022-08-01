@@ -18,15 +18,11 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000; //
 
-lineID_sent_to = ["111", "222"];
-
 app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
   try {
     const events = req.body.events;
     console.log("event=>>>>", events);
-    return events.length > 0
-      ? await events.map((item) => handleEvent(item))
-      : res.status(200).send("OK");
+    return events.length > 0 ? await events.map((item) => handleEvent(item)): res.status(200).send("OK");
   } catch (error) {
     res.status(500).end();
   }
@@ -45,7 +41,6 @@ app.post("/alert", async (req, res) => {
   } = req.body;
   console.log(req.body)
 
-  strUrl = "https://api.line.me/v2/bot/message/push";
   // curl -v -X POST https://api.line.me/v2/bot/message/multicast \
   // -H 'Content-Type: application/json' \
   // -H 'Authorization: Bearer {channel access token}' \

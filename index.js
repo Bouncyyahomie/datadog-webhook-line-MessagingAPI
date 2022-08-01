@@ -69,7 +69,8 @@ app.post("/alert", async (req, res) => {
       "https://api.line.me/v2/bot/message/multicast",
       {
         to: [
-          "Ubedd0f50b99217db43961d4fded59241", "Ue7ab5379916d0c72b062ecc87f41a3da"
+          "Ubedd0f50b99217db43961d4fded59241", "Ue7ab5379916d0c72b062ecc87f41a3da",
+          "C7799410cb5668b4623e04b38912b131e"
         ],
         messages: [message],
       },

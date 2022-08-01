@@ -63,7 +63,6 @@ app.post("/alert", async (req, res) => {
     tags,
     priority,
     link,
-    snapshot
   );
 
   try {
@@ -101,7 +100,6 @@ function mm_set(
   tags,
   priority,
   link,
-  snapshot
 ) {
   console.log(
     event_title,
@@ -110,7 +108,6 @@ function mm_set(
     tags,
     priority,
     link,
-    snapshot
   );
   return (message = {
     type: "flex",

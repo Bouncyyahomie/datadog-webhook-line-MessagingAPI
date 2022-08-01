@@ -4,7 +4,6 @@ const line = require("@line/bot-sdk");
 require("dotenv").config();
 const axios = require("axios");
 
-// const env = dotenv.config().parsed;
 const lineConfig = {
   channelAccessToken: process.env.ACCESS_TOKEN,
   channelSecret: process.env.SECRET_TOKEN,
@@ -17,7 +16,6 @@ app.use(require("body-parser").urlencoded({ extended: false }));
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000; //
-// line.middleware(lineConfig)
 
 app.post("/webhook", async (req, res) => {
   try {
@@ -71,7 +69,7 @@ app.post("/alert", async (req, res) => {
       "https://api.line.me/v2/bot/message/multicast",
       {
         to: [
-          env.USER1,env.USER2
+          "Ubedd0f50b99217db43961d4fded59241", "Ue7ab5379916d0c72b062ecc87f41a3da"
         ],
         messages: [message],
       },

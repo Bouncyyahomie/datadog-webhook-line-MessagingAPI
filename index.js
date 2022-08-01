@@ -31,12 +31,10 @@ app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
 app.post("/alert", async (req, res) => {
   const {
     alert_title,
-    alert_query,
     event_title,
     alert_type,
     priority,
     link,
-    snapshot,
     tags,
   } = req.body;
   console.log(req.body)
@@ -121,7 +119,7 @@ function mm_set(
       type: "bubble",
       hero: {
         type: "image",
-        url: snapshot,
+        url: "https://www.drupal.org/files/datadog-logo-purple.png",
         size: "full",
         aspectRatio: "20:13",
         aspectMode: "cover",

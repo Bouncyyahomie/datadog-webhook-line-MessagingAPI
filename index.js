@@ -1,15 +1,15 @@
 const https = require("https");
 const express = require("express");
 const line = require("@line/bot-sdk");
-const dotenv = require("dotenv");
+require("dotenv").config();
 const axios = require("axios");
 
-const env = dotenv.config().parsed;
+// const env = dotenv.config().parsed;
 const lineConfig = {
-  channelAccessToken: env.ACCESS_TOKEN,
-  channelSecret: env.SECRET_TOKEN,
+  channelAccessToken: process.env.ACCESS_TOKEN,
+  channelSecret: process.env.SECRET_TOKEN,
 };
-//create client
+
 const client = new line.Client(lineConfig);
 
 const app = express();
@@ -17,12 +17,16 @@ app.use(require("body-parser").urlencoded({ extended: false }));
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000; //
+// line.middleware(lineConfig)
 
-app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
+app.post("/webhook", async (req, res) => {
+  console.log("jkjjhfghdfhg");
   try {
     const events = req.body.events;
     console.log("event=>>>>", events);
-    return events.length > 0 ? await events.map((item) => handleEvent(item)) : res.status(200).send("OK");
+    return events.length > 0
+      ? await events.map((item) => handleEvent(item))
+      : res.status(200).send("OK");
   } catch (error) {
     res.status(500).end();
   }

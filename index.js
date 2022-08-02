@@ -65,11 +65,11 @@ app.post("/alert", async (req, res) => {
           message: [message]
         },
       })
-}catch (error) {
-  console.log("message sent unsuccessful");
-  console.log(error.response.data);
-  res.status(500).end();
-}
+  }catch (error) {
+    console.log("message sent unsuccessful");
+    console.log(error);
+    res.status(500).end();
+  }
 
 // curl -v -X POST https://api.line.me/v2/bot/message/multicast \
 // -H 'Content-Type: application/json' \

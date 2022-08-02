@@ -39,23 +39,6 @@ app.post("/alert", async (req, res) => {
   } = req.body;
   console.log(req.body)
 
-  // curl -v -X POST https://api.line.me/v2/bot/message/multicast \
-  // -H 'Content-Type: application/json' \
-  // -H 'Authorization: Bearer {channel access token}' \
-  // -d '{
-  //     "to": ["U4af4980629...","U0c229f96c4..."],
-  //     "messages":[
-  //         {
-  //             "type":"text",
-  //             "text":"Hello, world1"
-  //         },
-  //         {
-  //             "type":"text",
-  //             "text":"Hello, world2"
-  //         }
-  //     ]
-  // }'
-
   message = mm_set(
     event_title,
     alert_title,
@@ -64,32 +47,72 @@ app.post("/alert", async (req, res) => {
     link,
   );
 
+  // $ curl -X POST -H 'Authorization: Bearer <access_token>' -F 'message=foobar' \
+  // https://notify-api.line.me/api/notify
+  // {"status":200,"message":"ok"}
+
   try {
     const response = await axios.post(
-      "https://api.line.me/v2/bot/message/multicast",
+      "https://notify-api.line.me/api/notify",
       {
-        to: [
-          "Ubedd0f50b99217db43961d4fded59241", "Ue7ab5379916d0c72b062ecc87f41a3da"
-        ],
-        messages: [message],
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${lineConfig.channelAccessToken}`,
+        header: {
+          'Content-Type': 'multipart/form-data',
         },
-      }
-    );
-    // console.log(response.body);
-    // console.log(response.data);
-    console.log("message sent");
-    res.status(200).end();
-  } catch (error) {
-    console.log("message sent unsuccessful");
-    console.log(error.response.data.details);
-    res.status(500).end();
-  }
-});
+        auth: {
+          bearer: process.env.TOKEN,
+        },
+        form: {
+          message: [message]
+        },
+      })
+}catch (error) {
+  console.log("message sent unsuccessful");
+  console.log(error.response.data.details);
+  res.status(500).end();
+}
+
+// curl -v -X POST https://api.line.me/v2/bot/message/multicast \
+// -H 'Content-Type: application/json' \
+// -H 'Authorization: Bearer {channel access token}' \
+// -d '{
+//     "to": ["U4af4980629...","U0c229f96c4..."],
+//     "messages":[
+//         {
+//             "type":"text",
+//             "text":"Hello, world1"
+//         },
+//         {
+//             "type":"text",
+//             "text":"Hello, world2"
+//         }
+//     ]
+// }'
+
+try {
+  const response = await axios.post(
+    "https://api.line.me/v2/bot/message/multicast",
+    {
+      to: [
+        "Ubedd0f50b99217db43961d4fded59241", "Ue7ab5379916d0c72b062ecc87f41a3da",
+      ],
+      messages: [message],
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${lineConfig.channelAccessToken}`,
+      },
+    }
+  );
+  // console.log(response.body);
+  // console.log(response.data);
+  console.log("message sent");
+  res.status(200).end();
+} catch (error) {
+  console.log("message sent unsuccessful");
+  console.log(error.response.data.details);
+  res.status(500).end();
+}});
 
 function mm_set(
   event_title,

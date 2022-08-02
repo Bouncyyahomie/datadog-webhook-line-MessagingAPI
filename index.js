@@ -67,7 +67,7 @@ app.post("/alert", async (req, res) => {
       })
 }catch (error) {
   console.log("message sent unsuccessful");
-  console.log(error.response.data.details);
+  console.log(error);
   res.status(500).end();
 }
 

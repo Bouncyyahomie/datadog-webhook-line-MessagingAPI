@@ -29,6 +29,12 @@ app.post("/webhook", async (req, res) => {
   }
 });
 
+const handleEvent = async (event) => {
+  console.log(event);
+  return client.replyMessage(event.replyToken, { type: "text", text: "Hello" });
+};
+
+
 app.post("/alert", async (req, res) => {
   const {
     alert_title,
@@ -66,7 +72,7 @@ app.post("/alert", async (req, res) => {
         },
       })
   }catch (error) {
-    console.log(error.response.data.detailss);
+    console.log(error.response.data.details);
     console.log("message sent unsuccessful");
     res.status(500).end();
   }
@@ -88,31 +94,31 @@ app.post("/alert", async (req, res) => {
 //     ]
 // }'
 
-try {
-  const response = await axios.post(
-    "https://api.line.me/v2/bot/message/multicast",
-    {
-      to: [
-        "Ubedd0f50b99217db43961d4fded59241", "Ue7ab5379916d0c72b062ecc87f41a3da",
-      ],
-      messages: [message],
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${lineConfig.channelAccessToken}`,
+    try {
+    const response = await axios.post(
+      "https://api.line.me/v2/bot/message/multicast",
+      {
+        to: [
+          "Ubedd0f50b99217db43961d4fded59241", "Ue7ab5379916d0c72b062ecc87f41a3da",
+        ],
+        messages: [message],
       },
-    }
-  );
-  // console.log(response.body);
-  // console.log(response.data);
-  console.log("message sent");
-  res.status(200).end();
-} catch (error) {
-  console.log("message sent unsuccessful");
-  console.log(error.response.data.details);
-  res.status(500).end();
-}});
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lineConfig.channelAccessToken}`,
+        },
+      }
+    );
+    // console.log(response.body);
+    // console.log(response.data);
+    console.log("message sent");
+    res.status(200).end();
+    } catch (error) {
+    console.log("message sent unsuccessful");
+    console.log(error.response.data.details);
+    res.status(500).end();
+    }});
 
 function mm_set(
   event_title,
@@ -275,11 +281,6 @@ function mm_set(
     },
   });
 }
-
-const handleEvent = async (event) => {
-  console.log(event);
-  return client.replyMessage(event.replyToken, { type: "text", text: "Hello" });
-};
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);

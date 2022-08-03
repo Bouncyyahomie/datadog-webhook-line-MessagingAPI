@@ -59,23 +59,23 @@ app.post("/alert", async (req, res) => {
   // https://notify-api.line.me/api/notify
   // {"status":200,"message":"ok"}
 
-  // try {
-  //   const respo = await axios.post(
-  //     "https://notify-api.line.me/api/notify",
-  //     {
-  //       header: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${notiTOKEN}`,
-  //       },
-  //       form: {
-  //         message: alert_title,
-  //       },
-  //     })
-  // }catch (error) {
-  //   console.log(error.response.data);
-  //   console.log("message sent unsuccessful");
-  //   res.status(500).end();
-  // }
+  try {
+    const respo = await axios.post(
+      "https://notify-api.line.me/api/notify",
+      {
+        header: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer oga1rboVxxyO43cgq5bza74Uump9Shlwt1z68UlE93J`,
+        },
+        form: {
+          message: alert_title,
+        },
+      })
+  }catch (error) {
+    console.log(error.response.data);
+    console.log("message sent unsuccessful");
+    res.status(500).end();
+  }
 
 // curl -v -X POST https://api.line.me/v2/bot/message/multicast \
 // -H 'Content-Type: application/json' \
@@ -94,31 +94,31 @@ app.post("/alert", async (req, res) => {
 //     ]
 // }
 
-    try {
-    const response = await axios.post(
-      "https://api.line.me/v2/bot/message/multicast",
-      {
-        to: [
-          "Ubedd0f50b99217db43961d4fded59241",
-        ],
-        messages: [message],
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${lineConfig.channelAccessToken}`,
-        },
-      }
-    );
-    // console.log(response.body);
-    // console.log(response.data);
-    console.log("message sent");
-    res.status(200).end();
-    } catch (error) {
-    console.log("message sent unsuccessful");
-    console.log(error.response.data.details);
-    res.status(500).end();
-    }
+    // try {
+    // const response = await axios.post(
+    //   "https://api.line.me/v2/bot/message/multicast",
+    //   {
+    //     to: [
+    //       "Ubedd0f50b99217db43961d4fded59241",
+    //     ],
+    //     messages: [message],
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${lineConfig.channelAccessToken}`,
+    //     },
+    //   }
+    // );
+    // // console.log(response.body);
+    // // console.log(response.data);
+    // console.log("message sent");
+    // res.status(200).end();
+    // } catch (error) {
+    // console.log("message sent unsuccessful");
+    // console.log(error.response.data.details);
+    // res.status(500).end();
+    // }
     });
 
 function mm_set(
@@ -285,4 +285,4 @@ function mm_set(
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
-});
+})

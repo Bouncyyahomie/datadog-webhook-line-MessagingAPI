@@ -72,7 +72,7 @@ app.post("/alert", async (req, res) => {
         },
       })
   }catch (error) {
-    console.log(error.response.data.details);
+    console.log(error.response.data);
     console.log("message sent unsuccessful");
     res.status(500).end();
   }
@@ -116,7 +116,7 @@ app.post("/alert", async (req, res) => {
     res.status(200).end();
     } catch (error) {
     console.log("message sent unsuccessful");
-    console.log(error.response.data);
+    console.log(error.response.data.details);
     res.status(500).end();
     }});
 

@@ -9,6 +9,8 @@ const lineConfig = {
   channelSecret: process.env.SECRET_TOKEN,
 };
 
+const notiTOKEN = process.env.TOKEN;
+
 const client = new line.Client(lineConfig);
 
 const app = express();
@@ -53,27 +55,27 @@ app.post("/alert", async (req, res) => {
     link,
   );
 
-  // $ curl -X POST -H 'Authorization: Bearer oga1rboVxxyO43cgq5bza74Uump9Shlwt1z68UlE93J' -F 'message=foobar' \
+  // $ curl -X POST -H 'Authorization: Bearer {access token}' -F 'message=foobar' \
   // https://notify-api.line.me/api/notify
   // {"status":200,"message":"ok"}
 
-  try {
-    const response = await axios.post(
-      "https://notify-api.line.me/api/notify",
-      {
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization:  'Bearer oga1rboVxxyO43cgq5bza74Uump9Shlwt1z68UlE93J',
-        },
-        form: {
-          message: [message]
-        },
-      })
-  }catch (error) {
-    console.log(error.response.data);
-    console.log("message sent unsuccessful");
-    res.status(500).end();
-  }
+  // try {
+  //   const respo = await axios.post(
+  //     "https://notify-api.line.me/api/notify",
+  //     {
+  //       header: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${notiTOKEN}`,
+  //       },
+  //       form: {
+  //         message: alert_title,
+  //       },
+  //     })
+  // }catch (error) {
+  //   console.log(error.response.data);
+  //   console.log("message sent unsuccessful");
+  //   res.status(500).end();
+  // }
 
 // curl -v -X POST https://api.line.me/v2/bot/message/multicast \
 // -H 'Content-Type: application/json' \
@@ -90,14 +92,14 @@ app.post("/alert", async (req, res) => {
 //             "text":"Hello, world2"
 //         }
 //     ]
-// }'
+// }
 
     try {
     const response = await axios.post(
       "https://api.line.me/v2/bot/message/multicast",
       {
         to: [
-          "Ubedd0f50b99217db43961d4fded59241", "Ue7ab5379916d0c72b062ecc87f41a3da",
+          "Ubedd0f50b99217db43961d4fded59241",
         ],
         messages: [message],
       },
@@ -116,7 +118,8 @@ app.post("/alert", async (req, res) => {
     console.log("message sent unsuccessful");
     console.log(error.response.data.details);
     res.status(500).end();
-    }});
+    }
+    });
 
 function mm_set(
   event_title,

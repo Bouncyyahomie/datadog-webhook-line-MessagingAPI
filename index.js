@@ -62,7 +62,7 @@ app.post("/alert", async (req, res) => {
       "https://notify-api.line.me/api/notify",
       {
         header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
           Authorization:  'Bearer oga1rboVxxyO43cgq5bza74Uump9Shlwt1z68UlE93J',
         },
         form: {

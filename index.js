@@ -53,7 +53,7 @@ app.post("/alert", async (req, res) => {
     link,
   );
 
-  // $ curl -X POST -H 'Authorization: Bearer <access_token>' -F 'message=foobar' \
+  // $ curl -X POST -H 'Authorization: Bearer oga1rboVxxyO43cgq5bza74Uump9Shlwt1z68UlE93J' -F 'message=foobar' \
   // https://notify-api.line.me/api/notify
   // {"status":200,"message":"ok"}
 
@@ -65,7 +65,7 @@ app.post("/alert", async (req, res) => {
           'Content-Type': 'multipart/form-data',
         },
         auth: {
-          bearer: process.env.TOKEN,
+          bearer: 'oga1rboVxxyO43cgq5bza74Uump9Shlwt1z68UlE93J',
         },
         form: {
           message: [message]

@@ -116,7 +116,7 @@ app.post("/alert", async (req, res) => {
     res.status(200).end();
     } catch (error) {
     console.log("message sent unsuccessful");
-    console.log(error.response.data.details);
+    console.log(error.response.data);
     res.status(500).end();
     }});
 

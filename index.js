@@ -63,9 +63,7 @@ app.post("/alert", async (req, res) => {
       {
         header: {
           'Content-Type': 'multipart/form-data',
-        },
-        auth: {
-          bearer: 'Bearer oga1rboVxxyO43cgq5bza74Uump9Shlwt1z68UlE93J',
+          Authorization:  'Bearer oga1rboVxxyO43cgq5bza74Uump9Shlwt1z68UlE93J',
         },
         form: {
           message: [message]
